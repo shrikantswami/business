@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-api = 'api_'
+api = 'api/'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user_profile/', include('user_profile.urls'))
+    path('user_profile/', include('user_profile.urls')),
+    path('api/', include(('user_profile.routers', 'user_profile'), namespace='core-api'))
 ]

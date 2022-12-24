@@ -1,5 +1,5 @@
-from business.user_profile.serializers import UserSerializer
-from business.user_profile.models import User
+from user_profile.serializers import UserSerializer
+from user_profile.models import User
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import filters

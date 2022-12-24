@@ -4,8 +4,8 @@ from rest_framework_simplejwt.settings import api_settings
 from django.contrib.auth.models import update_last_login
 from django.core.exceptions import ObjectDoesNotExist
 
-from business.user_profile.serializers import UserSerializer
-from business.user_profile.models import User
+from user_profile.serializers import UserSerializer
+from user_profile.models import User
 
 
 class LoginSerializer(TokenObtainPairSerializer):
@@ -35,7 +35,10 @@ class RegisterSerializer(UserSerializer):
 
     def create(self, validated_data):
         try:
+            print("came here")
+            print(validated_data)
             user = User.objects.get(email=validated_data['email'])
         except ObjectDoesNotExist:
             user = User.objects.create_user(**validated_data)
+            pass
         return user
