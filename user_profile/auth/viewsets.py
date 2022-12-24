@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from user_profile.auth.serializer import LoginSerializer, RegisterSerializer
-
+from user_profile.utitity import Utility
 
 class LoginViewSet(ModelViewSet, TokenObtainPairView):
     serializer_class = LoginSerializer
@@ -14,7 +14,8 @@ class LoginViewSet(ModelViewSet, TokenObtainPairView):
     http_method_names = ['post']
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+        user_data = Utility.extract_user_detais(request)
+        serializer = self.get_serializer(data=user_data)
 
         try:
             serializer.is_valid(raise_exception=True)
