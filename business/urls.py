@@ -21,5 +21,6 @@ api = 'api/'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user_profile/', include('user_profile.urls')),
-    path('api/', include(('user_profile.routers', 'user_profile'), namespace='core-api'))
+    path('api/', include(('user_profile.routers', 'user_profile'), namespace='core-api')),
+    path('shop_api/', include(('shop_management.urls', 'shop_management'), namespace='shop-api'))
 ]
