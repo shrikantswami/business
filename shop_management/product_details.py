@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from utility.logging import Utility
@@ -17,15 +19,16 @@ class ProductDetails(APIView):
 
     def get(self, request):
         try:
+            print(request)
             if request.query_params['Action']=='Filter':
-
                 serialized_data = self.filter(request.query_params)
+                utils.log(level='msg', msg=serialized_data)
             else:
                 product_list = ProductDetail.objects.all()
                 utils.log(level='msg', msg=product_list)
                 serialized_data = serialize("json", product_list)
                 serialized_data = json.loads(serialized_data)
-            return HttpResponse(serialized_data)
+            return Response(serialized_data, status=status.HTTP_200_OK)
         except Exception as e:
             utils.log(level='error',msg=str(e))
 
